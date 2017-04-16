@@ -5,8 +5,8 @@
  */
 package proyecto1;
 
-import control.GestorInconsistencia;
-import control.PropertiesLoader;
+import proyecto1.control.GestorInconsistencia;
+import proyecto1.control.PropertiesLoader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package control;
+package proyecto1.control;
 
 import java.io.File;
 import java.util.Date;

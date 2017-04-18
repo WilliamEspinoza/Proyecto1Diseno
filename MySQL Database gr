@@ -1,0 +1,66 @@
+CREATE SCHEMA `gr` ;
+
+CREATE TABLE `gr`.`resolucion` (
+  `idresolucion` INT NOT NULL,
+  `identificador` VARCHAR(50) NULL,
+  `fecha` DATE NULL,
+  PRIMARY KEY (`idresolucion`));
+  
+CREATE TABLE `gr`.`tipo_persona` (
+  `idtipo_persona` INT NOT NULL,
+  `cargo` VARCHAR(45) NOT NULL,
+  `descripcion` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idtipo_persona`));
+  
+CREATE TABLE `persona` (
+  `idpersona` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `primerApellido` varchar(45) NOT NULL,
+  `segundoApellido` varchar(45) NOT NULL,
+  `correo` varchar(45) NOT NULL,
+  `telefono` varchar(45) NOT NULL,
+  `idTipoPersona` int(11) NOT NULL,
+  PRIMARY KEY (`idpersona`),
+  UNIQUE KEY `idTipoPersona_UNIQUE` (`idTipoPersona`),
+  CONSTRAINT `idTipoPersona` FOREIGN KEY (`idTipoPersona`) REFERENCES `tipo_persona` (`idtipo_persona`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  
+CREATE TABLE `gr`.`solicitud` (
+  `idsolicitud` INT NOT NULL,
+  `fecha` DATE NOT NULL,
+  `nombreSolicitante` VARCHAR(45) NOT NULL,
+  `periodo` VARCHAR(45) NOT NULL,
+  `codigoCurso` VARCHAR(45) NOT NULL,
+  `grupoCurso` VARCHAR(45) NOT NULL,
+  `nombreAfectado` VARCHAR(45) NOT NULL,
+  `correoAfectado` VARCHAR(45) NOT NULL,
+  `numeroAfectado` VARCHAR(45) NOT NULL,
+  `tipoInconsistencia` VARCHAR(45) NOT NULL,
+  `descripcion` VARCHAR(45) NOT NULL,
+  `idResolucion` INT NULL,
+  PRIMARY KEY (`idsolicitud`),
+  INDEX `idResolucion_idx` (`idResolucion` ASC),
+  CONSTRAINT `idResolucion`
+    FOREIGN KEY (`idResolucion`)
+    REFERENCES `gr`.`resolucion` (`idresolucion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+	
+	
+ALTER TABLE `gr`.`solicitud` 
+DROP FOREIGN KEY `idResolucion`;
+ALTER TABLE `gr`.`solicitud` 
+CHANGE COLUMN `idResolucion` `idResolucion` INT NOT NULL ,
+ADD COLUMN `idPersona` INT NOT NULL AFTER `idResolucion`,
+ADD INDEX `idPersona_idx` (`idPersona` ASC);
+ALTER TABLE `gr`.`solicitud` 
+ADD CONSTRAINT `idResolucion`
+  FOREIGN KEY (`idResolucion`)
+  REFERENCES `gr`.`resolucion` (`idresolucion`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `idPersona`
+  FOREIGN KEY (`idPersona`)
+  REFERENCES `gr`.`persona` (`idpersona`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

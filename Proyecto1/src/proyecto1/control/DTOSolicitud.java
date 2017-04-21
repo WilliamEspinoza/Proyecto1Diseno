@@ -24,7 +24,6 @@ public class DTOSolicitud {
     private String numeroAfectado;
     private String tipoInconsistencia ;
     private String descripcion;
-    private ArrayList<String> considerandos;
     private File adjunto;
     public void setIdentificador(int identificador) {
         this.identificador = identificador;
@@ -86,9 +85,7 @@ public class DTOSolicitud {
         this.descripcion = descripcion;
     }
 
-    public void setConsiderandos(ArrayList<String> considerandos) {
-        this.considerandos = considerandos;
-    }
+ 
 
     public void setAdjunto(File adjunto) {
         this.adjunto = adjunto;
@@ -162,10 +159,6 @@ public class DTOSolicitud {
         return descripcion;
     }
 
-  
-    public ArrayList<String> getConsiderandos() {
-        return considerandos;
-    }
 
  
     public File getAdjunto() {

@@ -22,6 +22,11 @@ public class ConstructorSolicitudImpl implements ConstructorSolicitud{
         solicitud.setFecha(pFecha);
         return this;    
     }
+    @Override
+    public ConstructorSolicitud estado() {
+        solicitud.setEstado("Pendiente");
+        return this;    
+    }
 
     @Override
     public ConstructorSolicitud nombreSolicitante(String pSolicitante) {
@@ -94,8 +99,11 @@ public class ConstructorSolicitudImpl implements ConstructorSolicitud{
         solicitud.setAdjunto(pAdjunto);
         return this;    
         }
-    public Solicitud crear(){
+    public Solicitud retornarSolicitud(){
         return solicitud;
+    }
+    public void crear(){
+        solicitud=new Solicitud();
     }
     
 }

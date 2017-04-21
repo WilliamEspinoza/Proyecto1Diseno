@@ -9,7 +9,7 @@ public class Solicitud {
     private int identificador;
     private Date fecha;
     private String nombreSolicitante;
-    private EstadoSolicitud estado;
+    private String estado;
     private String idSolicitante;
     private String periodo;
     private String codigoCurso;
@@ -20,7 +20,6 @@ public class Solicitud {
     private String numeroAfectado;
     private String tipoInconsistencia ;
     private String descripcion;
-    private ArrayList<String> considerandos;
     private File adjunto;
 
   
@@ -36,7 +35,7 @@ public class Solicitud {
     }
 
  
-    public void setEstado(EstadoSolicitud estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -84,10 +83,7 @@ public class Solicitud {
         this.descripcion = descripcion;
     }
 
-    public void setConsiderandos(ArrayList<String> considerandos) {
-        this.considerandos = considerandos;
-    }
-
+ 
     public void setAdjunto(File adjunto) {
         this.adjunto = adjunto;
     }
@@ -109,8 +105,8 @@ public class Solicitud {
         return nombreSolicitante;
     }
 
-    public EstadoSolicitud getEstado() {
-        return estado;
+    public String getEstado() {
+        return estado.toString();
     }
 
 
@@ -158,11 +154,6 @@ public class Solicitud {
   
     public String getDescripcion() {
         return descripcion;
-    }
-
-  
-    public ArrayList<String> getConsiderandos() {
-        return considerandos;
     }
 
  

@@ -9,6 +9,7 @@ import java.util.Date;
  */
 public interface ConstructorSolicitud {
      public ConstructorSolicitud identificador(int pIdentificador);
+     public ConstructorSolicitud estado();
      public ConstructorSolicitud fecha(Date pFecha);
      public ConstructorSolicitud nombreSolicitante(String pSolicitante);
      public ConstructorSolicitud idSolicitante(String pId);

@@ -1,6 +1,8 @@
 package proyecto1.control;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Properties;
 import proyecto1.datos.Solicitud;
 
@@ -12,10 +14,15 @@ import proyecto1.datos.Solicitud;
  */
 public class GestorSolicitudes extends GestorGeneral{
     
-    private ConstructorSolicitudImpl constructor;
+    private ConstructorSolicitudImpl constructor=new ConstructorSolicitudImpl();
     @Override
     public Object consultar(int identificador) {
-       return 3;
+       for (Object solicitud: lista) {
+            if (((Solicitud)solicitud).getIdentificador()== identificador) {
+                 return solicitud;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -29,9 +36,11 @@ public class GestorSolicitudes extends GestorGeneral{
         PropertiesLoader loader=new PropertiesLoader();
         Properties prop=loader.cargarProperties();
         int idSolicitudes=Integer.parseInt(prop.getProperty("idSolicitudes"));
-        idSolicitudes+=1;
+        idSolicitudes+=5;
+        constructor.crear();
         constructor.identificador(idSolicitudes)
         .fecha(pDatos.getFecha())
+        .estado()
         .nombreSolicitante(pDatos.getNombreSolicitante())
         .idSolicitante(pDatos.getIdSolicitante())
         .periodo(pDatos.getPeriodo())
@@ -44,14 +53,21 @@ public class GestorSolicitudes extends GestorGeneral{
         .tipoInconsistencia(pDatos.getTipoInconsistencia())
         .descripcion(pDatos.getDescripcion())
         .adjunto(pDatos.getAdjunto());
-        Solicitud nuevaSolicitud=constructor.crear();
+        Solicitud nuevaSolicitud=constructor.retornarSolicitud();
         lista.add(nuevaSolicitud);
+        System.out.println(lista.toString());
         
     }
-    public boolean insertBD(Solicitud pSolicitud){
-        // codigo para llamar DAOSQLSolicitud
-        return true;
+    public ArrayList<String> buscarPorEstado(String pEstado){
+        ArrayList<String> resultado = new ArrayList<String>();
+        for (Object solicitud: lista) {
+            if (((Solicitud)solicitud).getEstado() == pEstado) {
+                 resultado.add(String.valueOf(((Solicitud) solicitud).getIdentificador()));
+            }
+        }
+        return resultado;
+        }
     }
     
     
-}
+
